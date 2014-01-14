@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import com.common.util.exception.CheckedException;
 
 /**
@@ -13,6 +15,11 @@ import com.common.util.exception.CheckedException;
  * @version 1.0
  */
 public class Printer {
+
+	/**
+	 * El Logger que vamos a ocupar dentro de la clase.
+	 */
+	private static final Logger log = Logger.getLogger(Printer.class);
 
 	/**
 	 * Función que permite la apertura del documento PDF que se pasa como parámetro para que el usuario pueda hacer con el lo que desee, no lo imprime
@@ -28,10 +35,14 @@ public class Printer {
 			try {
 				// abre el archivo
 				Desktop.getDesktop().open(new File(file));
-			} catch (IOException ex) {
+
+			} catch (IOException e) {
+				Printer.log.error("open file failed", e);
 				throw new CheckedException("file.open.failed");
 			}
+
 		} else {
+			Printer.log.error("open file don't supported");
 			throw new CheckedException("file.dont.support.os");
 		}
 	}
