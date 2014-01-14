@@ -2,7 +2,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.common</groupId>
+	<groupId>common</groupId>
 	<artifactId>report</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -130,7 +130,7 @@
 		<!-- La libreria comun de los proyectos -->
 
 		<dependency>
-			<groupId>com.common</groupId>
+			<groupId>common</groupId>
 			<artifactId>util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
