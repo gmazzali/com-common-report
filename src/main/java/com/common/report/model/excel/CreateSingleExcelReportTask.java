@@ -10,8 +10,6 @@ import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
 
-import com.common.report.model.printer.Printer;
-import com.common.util.exception.UncheckedException;
 import com.common.util.model.thread.GenericTask;
 
 /**
@@ -42,7 +40,7 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 	 * El constructor de un proceso de creación de reportes en excel.
 	 */
 	public CreateSingleExcelReportTask() {
-		super("CreateSingleExcelReportTask");
+		super("create single excel report task");
 	}
 
 	/**
@@ -94,20 +92,6 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 
 		} catch (Exception e) {
 			CreateSingleExcelReportTask.log.error("execute failed", e);
-		}
-	}
-
-	/**
-	 * @see com.common.util.model.thread.GenericTask#afterExecute()
-	 */
-	@Override
-	protected void afterExecute() {
-		CreateSingleExcelReportTask.log.trace("after execute");
-
-		try {
-			Printer.openFile(this.getFileName());
-		} catch (Exception e) {
-			CreateSingleExcelReportTask.log.error("after execute failed", e);
 		}
 	}
 
