@@ -15,7 +15,7 @@ import com.common.util.exception.UncheckedException;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public class PrinterImpl implements Printer {
+public abstract class PrinterImpl implements Printer {
 
 	/**
 	 * El Logger que vamos a ocupar dentro de la clase.
@@ -59,10 +59,5 @@ public class PrinterImpl implements Printer {
 	@Override
 	public void printFile(String pathFile) {
 		this.printFile(new File(pathFile));
-	}
-
-	@Override
-	public void printFile(File file) {
-		// TODO Por ahora no hace nada.
 	}
 }
