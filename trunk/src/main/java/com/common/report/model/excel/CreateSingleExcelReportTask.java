@@ -68,23 +68,23 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 		CreateSingleExcelReportTask.log.trace("execute");
 
 		try {
-			this.taskMonitor.setValue(0.0);
+			this.monitor.setValue(0.0);
 
 			// Formateamos las columnas.
 			this.columnsFormat();
-			this.taskMonitor.setValue(0.1);
+			this.monitor.setValue(0.1);
 
 			// Agregamos los titulos de las columnas.
 			this.columnsTitles();
-			this.taskMonitor.setValue(0.2);
+			this.monitor.setValue(0.2);
 
 			// Obtenemos los datos.
 			this.getData();
-			this.taskMonitor.setValue(0.5);
+			this.monitor.setValue(0.5);
 
 			// Agregamos los datos.
 			this.addData();
-			this.taskMonitor.setValue(1.0);
+			this.monitor.setValue(1.0);
 
 			// Escribimos los datos en el archivo y lo cerramos.
 			this.book.write();
