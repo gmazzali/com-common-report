@@ -15,7 +15,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.log4j.Logger;
 
-import com.common.report.model.printer.Printer;
 import com.common.util.model.thread.GenericTask;
 
 /**
@@ -106,24 +105,12 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 			CreateDatabasePdfReportTask.log.error("fill report failed", e);
 			return;
 		}
-	}
 
-	/**
-	 * @see com.commons.util.model.thread.GenericTask#afterExecute()
-	 */
-	@Override
-	public void afterExecute() {
-		CreateDatabasePdfReportTask.log.trace("after execute");
-
+		// Exportamos el PDF a un archivo.
 		try {
 			JasperExportManager.exportReportToPdfFile(this.filledReport, this.getNameFile());
 		} catch (Exception e) {
 			CreateDatabasePdfReportTask.log.error("export file failed", e);
-		}
-		try {
-			Printer.openFile(this.getNameFile());
-		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.error("open file failed", e);
 		}
 	}
 
