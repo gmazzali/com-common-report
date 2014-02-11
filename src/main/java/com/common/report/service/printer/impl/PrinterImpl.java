@@ -34,6 +34,13 @@ public class PrinterImpl implements Printer {
 			PrinterImpl.log.error("file doesn't exist");
 			throw new UncheckedException("printer.open.file.not.exist");
 		}
+
+		// Si el archivo es un directorio.
+		if(file.isDirectory()) {
+			PrinterImpl.log.error("file is a directory");
+			throw new UncheckedException("printer.open.file.is.directory");
+		}
+		
 		// Si el sistema operativo lo soporta.
 		if (Desktop.isDesktopSupported()) {
 			try {
