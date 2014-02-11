@@ -50,7 +50,7 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	protected void beforeExecute() {
-		CreateSingleExcelReportTask.log.trace("BeforeExecute");
+		CreateSingleExcelReportTask.log.trace("before execute");
 
 		try {
 			// Creamos el libro del archivo que vamos a llenar.
@@ -58,7 +58,7 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 			// Creamos la primer hoja del libro.
 			this.sheet = this.book.createSheet(this.getSheetName(), 0);
 		} catch (IOException e) {
-			CreateSingleExcelReportTask.log.error("BeforeExecute failed", e);
+			CreateSingleExcelReportTask.log.error("before execute failed", e);
 		}
 	}
 
@@ -67,7 +67,7 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	protected void execute() {
-		CreateSingleExcelReportTask.log.trace("Execute");
+		CreateSingleExcelReportTask.log.trace("execute");
 
 		try {
 			this.taskMonitor.setValue(0.0);
@@ -80,11 +80,11 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 			this.columnsTitles();
 			this.taskMonitor.setValue(0.2);
 
-			// Obtenemos los datos desde la base de datos.
+			// Obtenemos los datos.
 			this.getData();
 			this.taskMonitor.setValue(0.5);
 
-			// Agregamos los datos y las fechas.
+			// Agregamos los datos.
 			this.addData();
 			this.taskMonitor.setValue(1.0);
 
@@ -93,8 +93,7 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 			this.book.close();
 
 		} catch (Exception e) {
-			CreateSingleExcelReportTask.log.error("Execute failed", e);
-			throw new UncheckedException(e.getMessage());
+			CreateSingleExcelReportTask.log.error("execute failed", e);
 		}
 	}
 
@@ -103,13 +102,12 @@ public abstract class CreateSingleExcelReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	protected void afterExecute() {
-		CreateSingleExcelReportTask.log.trace("AfterExecute");
+		CreateSingleExcelReportTask.log.trace("after execute");
 
 		try {
 			Printer.openFile(this.getFileName());
 		} catch (Exception e) {
-			CreateSingleExcelReportTask.log.error("AfterExecute failed", e);
-			throw new UncheckedException(e.getMessage());
+			CreateSingleExcelReportTask.log.error("after execute failed", e);
 		}
 	}
 
