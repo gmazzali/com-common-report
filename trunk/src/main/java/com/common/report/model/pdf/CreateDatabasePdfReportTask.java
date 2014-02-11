@@ -54,7 +54,7 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	public void beforeExecute() {
-		CreateDatabasePdfReportTask.log.trace("BeforeExecute");
+		CreateDatabasePdfReportTask.log.trace("before execute");
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	public void execute() {
-		CreateDatabasePdfReportTask.log.trace("Execute");
+		CreateDatabasePdfReportTask.log.trace("execute");
 
 		// Conectamos la base de datos en caso de que este desconectada.
 		Connection connection = null;
@@ -70,30 +70,29 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 			connection = this.getDataSource().getConnection();
 
 			if (connection.isValid(5000)) {
-				CreateDatabasePdfReportTask.log.info("Connection ready");
+				CreateDatabasePdfReportTask.log.info("connection ready");
 			} else {
-				CreateDatabasePdfReportTask.log.warn("Connection failed");
+				CreateDatabasePdfReportTask.log.warn("connection failed");
 			}
 
 		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.error("Connection failed", e);
+			CreateDatabasePdfReportTask.log.error("connection failed", e);
 			return;
 		}
 
 		// Obtenemos el reporte, si no lo tenemos compilado, lo compilamos.
 		try {
 			this.masterReport = (JasperReport) JRLoader.loadObject(new FileInputStream(this.getReportFile() + ".jasper"));
-			CreateDatabasePdfReportTask.log.info("Report ready");
+			CreateDatabasePdfReportTask.log.info("report ready");
 
 		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.warn("Compile report");
+			CreateDatabasePdfReportTask.log.warn("compile report");
 			try {
 				this.masterReport = JasperCompileManager.compileReport(new FileInputStream(this.getReportFile() + ".jrxml"));
-				CreateDatabasePdfReportTask.log.info("Compile report succefull");
+				CreateDatabasePdfReportTask.log.info("compile report succefull");
 
 			} catch (Exception e1) {
-				CreateDatabasePdfReportTask.log.error("Compile report failed", e1);
-				e1.printStackTrace();
+				CreateDatabasePdfReportTask.log.error("compile report failed", e1);
 				return;
 			}
 		}
@@ -101,10 +100,10 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 		// Llenamos el reporte con los datos cargados desde la base de datos.
 		try {
 			this.filledReport = JasperFillManager.fillReport(this.masterReport, this.getParameter(), connection);
-			CreateDatabasePdfReportTask.log.info("Fill report succefull");
+			CreateDatabasePdfReportTask.log.info("fill report succefull");
 
 		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.error("Fill report failed", e);
+			CreateDatabasePdfReportTask.log.error("fill report failed", e);
 			return;
 		}
 	}
@@ -114,17 +113,17 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 	 */
 	@Override
 	public void afterExecute() {
-		CreateDatabasePdfReportTask.log.trace("AfterExecute");
+		CreateDatabasePdfReportTask.log.trace("after execute");
 
 		try {
 			JasperExportManager.exportReportToPdfFile(this.filledReport, this.getNameFile());
 		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.error("Export file failed", e);
+			CreateDatabasePdfReportTask.log.error("export file failed", e);
 		}
 		try {
 			Printer.openFile(this.getNameFile());
 		} catch (Exception e) {
-			CreateDatabasePdfReportTask.log.error("Open file failed", e);
+			CreateDatabasePdfReportTask.log.error("open file failed", e);
 		}
 	}
 
