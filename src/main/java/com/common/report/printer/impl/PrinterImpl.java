@@ -1,4 +1,4 @@
-package com.common.report.service.printer.impl;
+package com.common.report.printer.impl;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import com.common.report.service.printer.Printer;
+import com.common.report.printer.Printer;
 import com.common.util.exception.UncheckedException;
 
 /**

@@ -1,4 +1,4 @@
-package com.common.report.service.printer;
+package com.common.report.printer;
 
 import java.io.File;
 
