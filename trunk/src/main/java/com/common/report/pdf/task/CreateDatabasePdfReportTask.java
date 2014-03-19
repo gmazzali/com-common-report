@@ -1,4 +1,4 @@
-package com.common.report.model.pdf;
+package com.common.report.pdf.task;
 
 import java.io.FileInputStream;
 import java.sql.Connection;

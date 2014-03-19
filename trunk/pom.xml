@@ -136,14 +136,6 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<!-- La libreria para la generacion de los EXCELs -->
-
-		<dependency>
-			<groupId>jexcelapi</groupId>
-			<artifactId>jxl</artifactId>
-			<version>2.6</version>
-		</dependency>
-
 		<!-- Las librerias de los reportes -->
 
 		<dependency>
@@ -158,5 +150,18 @@
 			<version>2.1.7</version>
 		</dependency>
 
+		<!-- La libreria para acceso a archivos de Microsoft Oficce -->
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency>
 	</dependencies>
 </project>
