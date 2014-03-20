@@ -5,6 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.common.report.excel.model.parser.DefaultExcelFieldParser;
+import com.common.report.excel.model.parser.ExcelFieldParser;
+
 /**
  * Define un campo dentro de un archivo de excel a partir de un atributo.
  * 
@@ -17,9 +20,9 @@ import java.lang.annotation.Target;
 public @interface ExcelField {
 
 	/**
-	 * La posición que corresponde al campo dentro del archivo.
+	 * La posición que corresponde al campo dentro del archivo (se comienza a contar las posiciones desde el valor 0).
 	 * 
-	 * @return La posición del campo dentro del archivo.
+	 * @return La posición del campo dentro del archivo (se comienza a contar las posiciones desde el valor 0).
 	 */
 	int posicion();
 
@@ -31,9 +34,17 @@ public @interface ExcelField {
 	String name() default "";
 
 	/**
-	 * Define si va a cargarse con el valor 0 para los campos númericos en caso de que no se encuentre dato para este campo.
+	 * El parseador que vamos a utilizar con este campo dentro del excel.
 	 * 
-	 * @return <i>true</i> en caso de que quiera cargarse el valor 0 para los valores númericos vacios, en caso contrario retornamos <i>false</i>.
+	 * @return El parseador que vamos a utilizar dentro de este campo.
 	 */
-	boolean zeroIfNull() default false;
+	Class<? extends ExcelFieldParser<?>> parser() default DefaultExcelFieldParser.class;
+
+	/**
+	 * Define si va a cargarse una celda vacía en la celda del campo en caso de que el valor de este sea nulo.
+	 * 
+	 * @return <i>true</i> en caso de que quiera cargarse una celda vacía en la celda del campo en caso de que el valor de este sea nulo, en caso
+	 *         contrario retornamos <i>false</i>.
+	 */
+	boolean emptyIfNull() default true;
 }
