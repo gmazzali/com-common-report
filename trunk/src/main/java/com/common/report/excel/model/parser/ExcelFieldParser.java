@@ -1,0 +1,40 @@
+package com.common.report.excel.model.parser;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+import com.common.report.excel.model.ExcelDto;
+
+/**
+ * Permite definir un parseador de una celda con un campo de un {@link ExcelDto} de un archivo de excel.
+ * 
+ * @see ExcelDto
+ * 
+ * @since 19/03/2014
+ * @author Guillermo Mazzali
+ * @version 1.0
+ * 
+ * @param <T>
+ *            El tipo de valor que vamos a almacenar dentro de la celda.
+ */
+public interface ExcelFieldParser<T> {
+
+	/**
+	 * Carga el contenido de la celda dentro del un objeto y lo retorna formateado correctamente. Debe ser un método null-safe.
+	 * 
+	 * @param cell
+	 *            La celda que va a leerse para cargar el objeto.
+	 * @return El valor cargado con los datos de la celda.
+	 */
+	public T get(Cell cell);
+
+	/**
+	 * Carga el contenido del objeto recibido dentro de la celda, convirtiendo el mismo en el tipo correcto antes de realizarlo. Debe ser un método
+	 * null-safe.
+	 * 
+	 * @param cell
+	 *            La celda donde vamos a guardar el objeto.
+	 * @param object
+	 *            El objeto que vamos a guardar dentro de la celda.
+	 */
+	public void set(Cell cell, T object);
+}
