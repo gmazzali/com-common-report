@@ -1,4 +1,4 @@
-package com.common.report.excel.util;
+package com.common.report.excel.domain.model;
 
 /**
  * Define el modo de parseo que vamos a realizar dentro del archivo de excel, es decir, si los datos van a leerse de arriba a abajo o de derecha a

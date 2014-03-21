@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.common.report.printer.Printer;
-import com.common.util.exception.UncheckedException;
+import com.common.util.domain.exception.UncheckedException;
 
 /**
  * La clase que nos va a servir para abrir una ventana de impresión o para abrir un archivo de manera nativa dentro del sistema operativo.

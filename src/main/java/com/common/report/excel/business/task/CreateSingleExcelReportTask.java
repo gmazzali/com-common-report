@@ -1,4 +1,4 @@
-package com.common.report.excel.task;
+package com.common.report.excel.business.task;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import jxl.write.WriteException;
 
 import org.apache.log4j.Logger;
 
-import com.common.report.excel.annotation.ExcelField;
-import com.common.report.excel.model.parser.ExcelFieldParser;
+import com.common.report.excel.domain.annotation.ExcelField;
+import com.common.report.excel.domain.model.parser.ExcelFieldParser;
 
 /**
  * La clase que nos permite crear un reporte con un listado de registros dentro de un archivo de excel.

@@ -1,10 +1,10 @@
-package com.common.report.excel.service;
+package com.common.report.excel.business.service;
 
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
-import com.common.report.excel.model.ExcelDto;
+import com.common.report.excel.domain.model.ExcelDto;
 
 /**
  * Define un DTO para las entradas de un archivo de excel.

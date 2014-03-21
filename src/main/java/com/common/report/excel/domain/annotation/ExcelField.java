@@ -1,12 +1,12 @@
-package com.common.report.excel.annotation;
+package com.common.report.excel.domain.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.common.report.excel.model.parser.DefaultExcelFieldParser;
-import com.common.report.excel.model.parser.ExcelFieldParser;
+import com.common.report.excel.domain.model.parser.DefaultExcelFieldParser;
+import com.common.report.excel.domain.model.parser.ExcelFieldParser;
 
 /**
  * Define un campo dentro de un archivo de excel a partir de un atributo.

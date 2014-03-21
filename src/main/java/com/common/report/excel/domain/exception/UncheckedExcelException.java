@@ -1,8 +1,8 @@
-package com.common.report.excel.exception;
+package com.common.report.excel.domain.exception;
 
-import com.common.util.exception.UncheckedException;
-import com.common.util.exception.error.ErrorDetail;
-import com.common.util.exception.error.Errors;
+import com.common.util.domain.exception.UncheckedException;
+import com.common.util.domain.exception.error.ErrorDetail;
+import com.common.util.domain.exception.error.Errors;
 
 /**
  * Las excepciones no chequeadas que vamos a utilizar para el manejo de archivos de excel.
