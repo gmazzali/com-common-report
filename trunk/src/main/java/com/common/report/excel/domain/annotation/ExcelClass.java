@@ -1,11 +1,11 @@
-package com.common.report.excel.annotation;
+package com.common.report.excel.domain.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.common.report.excel.util.ParseType;
+import com.common.report.excel.domain.model.ParseType;
 
 /**
  * Define una clase que vamos a mapear con un archivo de excel.

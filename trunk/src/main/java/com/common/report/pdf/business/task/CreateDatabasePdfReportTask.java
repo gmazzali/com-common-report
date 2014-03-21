@@ -1,4 +1,4 @@
-package com.common.report.pdf.task;
+package com.common.report.pdf.business.task;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.log4j.Logger;
 
-import com.common.util.model.thread.GenericTask;
+import com.common.util.domain.model.thread.GenericTask;
 
 /**
  * La clase que nos permite crear pdf con los valores que recuperemos desde una base de datos.

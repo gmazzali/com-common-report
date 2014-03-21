@@ -1,8 +1,8 @@
-package com.common.report.excel.model.parser;
+package com.common.report.excel.domain.model.parser;
 
 import org.apache.poi.ss.usermodel.Cell;
 
-import com.common.report.excel.model.ExcelDto;
+import com.common.report.excel.domain.model.ExcelDto;
 
 /**
  * Permite definir un parseador de una celda con un campo de un {@link ExcelDto} de un archivo de excel.

@@ -1,4 +1,4 @@
-package com.common.report.excel.model.parser;
+package com.common.report.excel.domain.model.parser;
 
 import java.util.Date;
 

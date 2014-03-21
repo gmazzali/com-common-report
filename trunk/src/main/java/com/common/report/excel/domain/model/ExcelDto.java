@@ -1,4 +1,4 @@
-package com.common.report.excel.model;
+package com.common.report.excel.domain.model;
 
 import java.io.Serializable;
 

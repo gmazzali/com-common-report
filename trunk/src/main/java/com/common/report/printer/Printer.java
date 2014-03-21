@@ -2,7 +2,7 @@ package com.common.report.printer;
 
 import java.io.File;
 
-import com.common.util.exception.UncheckedException;
+import com.common.util.domain.exception.UncheckedException;
 
 /**
  * La interfaz que define el comportamiento básico de un servicio de impresión dentro del sistema.

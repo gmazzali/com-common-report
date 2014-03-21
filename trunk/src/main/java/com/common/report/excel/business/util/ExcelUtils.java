@@ -1,4 +1,4 @@
-package com.common.report.excel.util;
+package com.common.report.excel.business.util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.common.report.excel.annotation.ExcelField;
+import com.common.report.excel.domain.annotation.ExcelField;
 
 public class ExcelUtils {
 

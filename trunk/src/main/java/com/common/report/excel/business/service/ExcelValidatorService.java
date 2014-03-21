@@ -1,10 +1,10 @@
-package com.common.report.excel.service;
+package com.common.report.excel.business.service;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-import com.common.report.excel.model.ExcelDto;
-import com.common.util.exception.error.Errors;
+import com.common.report.excel.domain.model.ExcelDto;
+import com.common.util.domain.exception.error.Errors;
 
 /**
  * Define un servicio para las validaciones de entradas de un archivo de excel.
