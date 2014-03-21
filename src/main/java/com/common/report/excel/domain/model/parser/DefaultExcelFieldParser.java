@@ -3,6 +3,7 @@ package com.common.report.excel.domain.model.parser;
 import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 /**
  * El parseador por omisión que tenemos dentro del sistema.
@@ -14,31 +15,49 @@ import org.apache.poi.ss.usermodel.Cell;
 public class DefaultExcelFieldParser implements ExcelFieldParser<Object> {
 
 	@Override
-	public Object get(Cell cell) {
+	public Object get(Cell cell, Class<Object> clazz) {
 		if (cell == null) {
 			return null;
 		}
 		int type = cell.getCellType();
+		Object value = null;
 		switch (type) {
 		case Cell.CELL_TYPE_BLANK:
-			return null;
+			value = null;
+			break;
 
 		case Cell.CELL_TYPE_BOOLEAN:
-			return cell.getBooleanCellValue();
+			value = clazz.cast(cell.getBooleanCellValue());
+			break;
 
 		case Cell.CELL_TYPE_ERROR:
-			return cell.getErrorCellValue();
+			value = cell.getErrorCellValue();
+			break;
 
 		case Cell.CELL_TYPE_FORMULA:
-			return cell.getCellFormula();
+			value = cell.getCellFormula();
 
+			break;
 		case Cell.CELL_TYPE_NUMERIC:
-			return cell.getNumericCellValue();
+			if (DateUtil.isCellDateFormatted(cell)) {
+				value = cell.getDateCellValue();
+			} else {
+				value = cell.getNumericCellValue();
+			}
+			break;
 
 		case Cell.CELL_TYPE_STRING:
-			return cell.getStringCellValue();
+			value = cell.getStringCellValue();
+			break;
 
 		default:
+			value = null;
+			break;
+		}
+
+		if (value != null) {
+			return clazz.cast(value);
+		} else {
 			return null;
 		}
 	}
