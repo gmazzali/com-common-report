@@ -1,4 +1,4 @@
-package com.common.report.excel.business.service;
+package com.common.report.excel.business.validator;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import com.common.util.domain.exception.error.Errors;
  * @param <T>
  *            La clase del DTO del excel que vamos a ocupar dentro de este servicio.
  */
-public interface ExcelValidatorService<E extends ExcelDto> extends Serializable {
+public interface ExcelValidator<E extends ExcelDto> extends Serializable {
 
 	/**
 	 * Permite validar el conjunto de datos que obtuvimos desde un archivo de excel.

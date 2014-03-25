@@ -16,7 +16,7 @@ import com.common.report.excel.domain.model.ExcelDto;
  * @param <T>
  *            La clase del DTO del excel que vamos a ocupar dentro de este servicio.
  */
-public interface ExcelWriterService<E extends ExcelDto> extends Serializable {
+public interface ExcelWriter<E extends ExcelDto> extends Serializable {
 
 	/**
 	 * Permite escribir una lista de DTOs dentro de una salida para poder escribirlos en un archivo o desplegarlo.

@@ -1,8 +1,9 @@
 package com.common.report.excel.business.service;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.ExcelDto;
 
@@ -16,14 +17,14 @@ import com.common.report.excel.domain.model.ExcelDto;
  * @param <T>
  *            La clase del DTO del excel que vamos a ocupar dentro de este servicio.
  */
-public interface ExcelReaderService<T extends ExcelDto> extends Serializable {
+public interface ExcelReader<T extends ExcelDto> extends Serializable {
 
 	/**
 	 * Se encarga de leer el archivo ubicado dentro del archivo ubicado por el nombre y cargar los DTO dentro de una lista.
 	 * 
-	 * @param inputStream
-	 *            La entrada de datos del archivo que vamos a leer dentro de este servicio.
+	 * @param workbook
+	 *            El archivo de excel desde el que va a leerse los datos del archivo.
 	 * @return El listado de los DTO que obtenemos desde el archivo.
 	 */
-	public List<T> read(InputStream inputStream);
+	public List<T> read(Workbook workbook);
 }

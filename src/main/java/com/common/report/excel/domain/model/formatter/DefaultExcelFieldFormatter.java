@@ -1,4 +1,4 @@
-package com.common.report.excel.domain.model.parser;
+package com.common.report.excel.domain.model.formatter;
 
 import java.util.Date;
 
@@ -12,10 +12,10 @@ import org.apache.poi.ss.usermodel.DateUtil;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public class DefaultExcelFieldParser implements ExcelFieldParser<Object> {
+public class DefaultExcelFieldFormatter implements ExcelFieldFormatter<Object> {
 
 	@Override
-	public Object get(Cell cell, Class<Object> clazz) {
+	public Object get(Cell cell, Class<?> clazz) {
 		if (cell == null) {
 			return null;
 		}
@@ -56,7 +56,11 @@ public class DefaultExcelFieldParser implements ExcelFieldParser<Object> {
 		}
 
 		if (value != null) {
-			return clazz.cast(value);
+			if (clazz.isAssignableFrom(value.getClass())) {
+				return clazz.cast(value);
+			} else {
+				return value;
+			}
 		} else {
 			return null;
 		}
