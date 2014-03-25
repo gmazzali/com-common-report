@@ -7,14 +7,13 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.business.service.ExcelReader;
-import com.common.report.excel.business.util.ExcelProcess;
 import com.common.report.excel.business.util.ExcelUtils;
 import com.common.report.excel.domain.model.ExcelDto;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "unused" })
 public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader<E> {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(ExcelProcess.class);
+	private static final Logger log = Logger.getLogger(ExcelReaderImpl.class);
 
 	/**
 	 * La clase que manejamos dentro del excel.

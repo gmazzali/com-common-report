@@ -98,7 +98,7 @@ public class ExcelUtils implements Serializable {
 				C excelDto = clazz.newInstance();
 
 				// Cargamos la instancia con los datos desde el excel.
-				dataNotNull = ExcelProcess.readDto(sheet, index, excelClass.parseType(), excelDto);
+				dataNotNull = ExcelUtils.readDto(sheet, index, excelClass.parseType(), excelDto);
 
 				// Solo si la entidad no es nula, la agregamos a la lista.
 				if (dataNotNull) {
