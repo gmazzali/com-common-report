@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.common.report.excel.domain.model.parser.DefaultExcelFieldParser;
-import com.common.report.excel.domain.model.parser.ExcelFieldParser;
+import com.common.report.excel.domain.model.formatter.DefaultExcelFieldFormatter;
+import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
 
 /**
  * Define un campo dentro de un archivo de excel a partir de un atributo.
@@ -38,7 +38,7 @@ public @interface ExcelField {
 	 * 
 	 * @return El parseador que vamos a utilizar dentro de este campo.
 	 */
-	Class<? extends ExcelFieldParser<?>> parser() default DefaultExcelFieldParser.class;
+	Class<? extends ExcelFieldFormatter<?>> parser() default DefaultExcelFieldFormatter.class;
 
 	/**
 	 * Define si va a cargarse una celda vacía en la celda del campo en caso de que el valor de este sea nulo.

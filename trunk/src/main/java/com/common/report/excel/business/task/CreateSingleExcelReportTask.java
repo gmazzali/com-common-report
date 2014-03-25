@@ -11,7 +11,7 @@ import jxl.write.WriteException;
 import org.apache.log4j.Logger;
 
 import com.common.report.excel.domain.annotation.ExcelField;
-import com.common.report.excel.domain.model.parser.ExcelFieldParser;
+import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
 
 /**
  * La clase que nos permite crear un reporte con un listado de registros dentro de un archivo de excel.
