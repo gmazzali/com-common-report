@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import com.common.report.excel.domain.annotation.ExcelField;
+import com.common.util.business.tool.VerifierUtil;
 
 /**
  * Contiene las herramientas basicas para la
@@ -22,6 +23,28 @@ public class ExcelUtils implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getLogger(ExcelUtils.class);
+
+	/**
+	 * Permite formatear el formato del nombre del archivo agregando la extensión al mismo en caso de ser necesario.
+	 * 
+	 * @param fileName
+	 *            El nombre del archivo que vamos a verificar y formatear.
+	 * @return El nombre del archivo correctamente formateado y con la extensión correspondiente.
+	 */
+	public static String formatFileName(String fileName, ExcelTypeEnum excelTypeEnum) {
+		// El nombre del archivo no puede ser nulo.
+		VerifierUtil.checkNotNull(fileName, "The file name cannot be null", "report.excel.error.filename.null");
+
+		StringBuffer buffer = new StringBuffer(fileName);
+
+		if (excelTypeEnum != null) {
+			if (!fileName.endsWith(excelTypeEnum.getExtension())) {
+				buffer.append(".");
+				buffer.append(excelTypeEnum.getExtension());
+			}
+		}
+		return buffer.toString();
+	}
 
 	/**
 	 * Permite recuperar el listado de campos que tenemos mapeados como campos de excel dentro de la clase recibida.

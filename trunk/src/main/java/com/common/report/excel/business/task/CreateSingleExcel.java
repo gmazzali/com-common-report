@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.common.util.domain.exception.error.Errors;
+
 /**
  * La clase que nos permite crear un reporte con un listado de registros dentro de un archivo de excel.
  * 
@@ -25,6 +27,10 @@ public abstract class CreateSingleExcel implements Serializable {
 	 * El archivo de excel que contiene el libro que vamos a utilizar dentro de este objeto.
 	 */
 	protected Workbook book;
+	/**
+	 * El conjunto de errores que aparecieron a la hora de crear el archivo de excel.
+	 */
+	protected Errors errors;
 
 	/**
 	 * El constructor por omisión del proceso de creación de un archivo de excel.
@@ -33,7 +39,14 @@ public abstract class CreateSingleExcel implements Serializable {
 		super();
 	}
 
-	protected void beforeExecute() {
+	public void start() {
+		this.thread = new Thread() {
+			public void run() {
+			};
+		};
+
+		this.thread.setDaemon(true);
+		this.thread.start();
 	}
 
 	protected void execute() {
@@ -53,13 +66,6 @@ public abstract class CreateSingleExcel implements Serializable {
 	 * @return El nombre del archivo que vamos a crear.
 	 */
 	protected abstract String getFileName();
-
-	/**
-	 * La función encargada de retornar el nombre que le vamos a poner al libro que vamos a llenar con el listado de registros.
-	 * 
-	 * @return El nombre del libro que le vamos a poner al libro.
-	 */
-	protected abstract String getSheetName();
 
 	/**
 	 * Función encargada de formatear los anchos de las columnas que van a insertarse dentro del reporte.

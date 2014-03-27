@@ -23,7 +23,7 @@ import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
  * @see ExcelDto
  * @see ExcelWriter
  * 
- * @since 19/03/2014
+ * @since 27/03/2014
  * @author Guillermo Mazzali
  * @version 1.0
  * 
@@ -48,7 +48,7 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 			this.excelDtoClass = (Class<E>) ((ParameterizedType) super.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		} else {
 			log.error("The generic parameter of this class doesn't must be empty");
-			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty");
+			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty", "report.excel.writer.error.parameter.empty");
 		}
 	}
 
@@ -71,7 +71,7 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 		if (excelClass == null) {
 			log.error("Invalid class configuration - ExcelClass annotation missing in: " + this.excelDtoClass.getSimpleName());
 			throw new UncheckedExcelException("Invalid class configuration - ExcelClass annotation missing in: "
-					+ excelDto.getClass().getSimpleName());
+					+ excelDto.getClass().getSimpleName(), "report.excel.writer.error.excelclass.null", this.excelDtoClass.getSimpleName());
 		}
 
 		// Obtenemos la hoja, si no existe la creamos.
@@ -116,7 +116,7 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 			}
 		} catch (Exception e) {
 			log.error("Fail to parser the DTO to the excel cell", e);
-			throw new UncheckedExcelException("Fail to parser the DTO to the excel cell");
+			throw new UncheckedExcelException("Fail to parser the DTO to the excel cell", "report.excel.writer.error.parser.fail");
 		}
 	}
 }
