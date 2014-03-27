@@ -30,14 +30,14 @@ public @interface ExcelClass {
 	 * 
 	 * @return El valor a partir de donde vamos a comenzar a leer los datos (se comienza a contar las posiciones desde el valor 0).
 	 */
-	long start();
+	int start();
 
 	/**
 	 * Indica el valor hasta donde vamos a leer los datos. Por omisión se toma el valor {@link Integer#MAX_VALUE}.
 	 * 
 	 * @return El valor hasta donde vamos a leer los datos.
 	 */
-	long end() default Integer.MAX_VALUE;
+	int end() default Integer.MAX_VALUE;
 
 	/**
 	 * Define el tipo de parseo que vamos a realizar sobre los datos dentro del archivo.

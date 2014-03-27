@@ -2,7 +2,6 @@ package com.common.report.excel.business.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +9,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.common.report.excel.business.service.ExcelReader;
 import com.common.report.excel.business.service.ExcelWriter;
 import com.common.report.excel.business.util.ExcelUtils;
 import com.common.report.excel.domain.annotation.ExcelClass;
@@ -18,10 +16,9 @@ import com.common.report.excel.domain.annotation.ExcelField;
 import com.common.report.excel.domain.exception.UncheckedExcelException;
 import com.common.report.excel.domain.model.ExcelDto;
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
-import com.common.util.business.tool.VerifierUtil;
 
 /**
- * La implementación base del lector de entidades a partir de un archivo de excel.
+ * La implementación base del escritor de entidades a partir de un archivo de excel.
  * 
  * @see ExcelDto
  * @see ExcelWriter
@@ -34,9 +31,9 @@ import com.common.util.business.tool.VerifierUtil;
  *            La clase del {@link ExcelDto} del excel que vamos a ocupar dentro de este servicio.
  */
 @SuppressWarnings("unchecked")
-public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader<E> {
+public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(ExcelReaderImpl.class);
+	private static final Logger log = Logger.getLogger(ExcelWriterImpl.class);
 
 	/**
 	 * La clase que manejamos dentro del excel.
@@ -46,7 +43,7 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 	/**
 	 * El constructor de un lector de archivos de excel.
 	 */
-	public ExcelReaderImpl() {
+	public ExcelWriterImpl() {
 		if (this instanceof ParameterizedType) {
 			this.excelDtoClass = (Class<E>) ((ParameterizedType) super.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		} else {
@@ -56,92 +53,70 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 	}
 
 	@Override
-	public List<E> read(Workbook workbook) {
-		// Obtenemos la clase del excel.
-		ExcelClass excelClass = this.excelDtoClass.getAnnotation(ExcelClass.class);
-		if (excelClass == null) {
-			log.error("Invalid class configuration - ExcelClass annotation missing in: " + this.excelDtoClass.getSimpleName());
-			throw new UncheckedExcelException("Invalid class configuration - ExcelClass annotation missing in: " + this.excelDtoClass.getSimpleName());
-		}
-
-		Boolean dataNotNull = true;
-		List<E> list = new ArrayList<E>();
-		
-		for (Integer index = excelClass.start(); index <= excelClass.end(); index++) {			
+	public void write(Workbook workbook, List<E> excelDtos) {
+		for (Integer index = 0; index < excelDtos.size(); index++) {
 			try {
-				// Creamos una nueva instancia del DTO.
-				E excelDto = this.excelDtoClass.newInstance();
-
-				// Cargamos la instancia con los datos desde el excel.
-				dataNotNull = this.readUnique(workbook, index, excelDto);
-
-				// Solo si la entidad no es nula, la agregamos a la lista.
-				if (dataNotNull) {
-					list.add(excelDto);
-				} else {
-					break;
-				}
+				E excelDto = excelDtos.get(index);
+				this.writeUnique(workbook, index, excelDto);
 			} catch (UncheckedExcelException e) {
 				throw e;
-			} catch (Exception e) {
-				log.error("Can't create a new instance of the DTO (missing default constructor?)", e);
-				throw new UncheckedExcelException("Can't create a new instance of the DTO (missing default constructor?)");
 			}
 		}
-
-		return list;
 	}
 
 	@Override
-	public Boolean readUnique(Workbook workbook, Integer index, E excelDto) {
+	public void writeUnique(Workbook workbook, Integer index, E excelDto) {
 		// Obtenemos la clase del excel.
 		ExcelClass excelClass = this.excelDtoClass.getAnnotation(ExcelClass.class);
 		if (excelClass == null) {
 			log.error("Invalid class configuration - ExcelClass annotation missing in: " + this.excelDtoClass.getSimpleName());
-			throw new UncheckedExcelException("Invalid class configuration - ExcelClass annotation missing in: " + this.excelDtoClass.getSimpleName());
+			throw new UncheckedExcelException("Invalid class configuration - ExcelClass annotation missing in: "
+					+ excelDto.getClass().getSimpleName());
 		}
 
+		// Obtenemos la hoja, si no existe la creamos.
 		Sheet sheet = workbook.getSheet(excelClass.sheet());
-		VerifierUtil.checkNotNull(sheet, "The sheet doesn't exist");
-
-		Boolean dataNotNull = false;
+		if (sheet == null) {
+			sheet = workbook.createSheet(excelClass.sheet());
+		}
 
 		try {
 			// Tomamos todos los campos y los cargamos con los datos desde las celdas.
 			List<Field> fields = ExcelUtils.getMappedExcelField(this.excelDtoClass);
 
 			for (Field field : fields) {
-				// Tomamos el campo de excel y el parseador.
+				// Tomamos el campo de excel y el parseador de este campo.
 				ExcelField excelField = field.getAnnotation(ExcelField.class);
-				ExcelFieldFormatter parser = excelField.parser().newInstance();
+				ExcelFieldFormatter parser = (ExcelFieldFormatter) excelField.parser().newInstance();
 
-				// Obtenemos la celda de acuerdo al tipo de recorrido que tenemos.
+				// Creamos la celda de acuerdo al tipo de recorrido que tenemos.
 				Cell cell = null;
 				switch (excelClass.parseType()) {
 				case COLUMN:
 					cell = ExcelUtils.getCell(sheet, index, excelField.posicion());
+					if (cell == null) {
+						cell = ExcelUtils.createCell(sheet, index, excelField.posicion());
+					}
 					break;
 
 				case ROW:
 					cell = ExcelUtils.getCell(sheet, excelField.posicion(), index);
+					if (cell == null) {
+						cell = ExcelUtils.createCell(sheet, excelField.posicion(), index);
+					}
 					break;
 
 				default:
 					break;
 				}
 
-				// Si obtuvimos alguna celda en esa posición, la parseamos.
-				Object value = parser.get(cell, field.getType());
-				field.set(excelDto, value);
-
-				// El valor que indica si se leyó al menos un atributo desde el excel.
-				dataNotNull |= value != null;
+				// Si obtuvimos alguna celda en esa posición, la escribimos.
+				Object value = field.get(excelDto);
+				parser.set(cell, value);
 			}
 		} catch (Exception e) {
-			log.error("Fail to parser the excel cell to the DTO", e);
-			throw new UncheckedExcelException("Fail to parser the excel cell to the DTO");
+			log.error("Fail to parser the DTO to the excel cell", e);
+			throw new UncheckedExcelException("Fail to parser the DTO to the excel cell");
 		}
-
-		return dataNotNull;
 	}
 }

@@ -81,8 +81,6 @@ public class DefaultExcelFieldFormatter implements ExcelFieldFormatter {
 			} else if (object instanceof Number) {
 				cell.setCellValue(((Number) object).doubleValue());
 			}
-		} else {
-			cell.setCellValue("");
 		}
 	}
 }
