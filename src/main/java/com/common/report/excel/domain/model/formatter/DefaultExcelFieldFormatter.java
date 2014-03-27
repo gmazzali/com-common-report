@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public class DefaultExcelFieldFormatter implements ExcelFieldFormatter<Object> {
+public class DefaultExcelFieldFormatter implements ExcelFieldFormatter {
 
 	@Override
 	public Object get(Cell cell, Class<?> clazz) {

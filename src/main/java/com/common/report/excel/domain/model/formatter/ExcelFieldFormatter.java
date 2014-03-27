@@ -12,11 +12,8 @@ import com.common.report.excel.domain.model.ExcelDto;
  * @since 19/03/2014
  * @author Guillermo Mazzali
  * @version 1.0
- * 
- * @param <T>
- *            El tipo de valor que vamos a almacenar dentro de la celda.
  */
-public interface ExcelFieldFormatter<T> {
+public interface ExcelFieldFormatter {
 
 	/**
 	 * Carga el contenido de la celda dentro del un objeto y lo retorna formateado correctamente. Debe ser un método null-safe.
@@ -27,7 +24,7 @@ public interface ExcelFieldFormatter<T> {
 	 *            La clase que corresponde con el tipo de objeto que es el campo de {@link ExcelDto} que vamos a cargar con el dato de la celda.
 	 * @return El valor cargado con los datos de la celda.
 	 */
-	public T get(Cell cell, Class<?> clazz);
+	public Object get(Cell cell, Class<?> clazz);
 
 	/**
 	 * Carga el contenido del objeto recibido dentro de la celda, convirtiendo el mismo en el tipo correcto antes de realizarlo. Debe ser un método
@@ -38,5 +35,5 @@ public interface ExcelFieldFormatter<T> {
 	 * @param object
 	 *            El objeto que vamos a guardar dentro de la celda.
 	 */
-	public void set(Cell cell, T object);
+	public void set(Cell cell, Object object);
 }

@@ -1,6 +1,7 @@
 package com.common.report.pdf.business.task;
 
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.util.HashMap;
 
@@ -15,21 +16,15 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.log4j.Logger;
 
-import com.common.util.domain.model.thread.GenericTask;
-
 /**
  * La clase que nos permite crear pdf con los valores que recuperemos desde una base de datos.
  * 
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
+public abstract class CreateDatabasePdfReportTask implements Serializable {
 
-	private static final long serialVersionUID = 3503392399881858440L;
-
-	/**
-	 * El Logger que vamos a ocupar dentro de la clase.
-	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getLogger(CreateDatabasePdfReportTask.class);
 
 	/**
@@ -45,21 +40,12 @@ public abstract class CreateDatabasePdfReportTask extends GenericTask<Double> {
 	 * El constructor del proceso que genera un reporte pdf desde datos de una base de datos.
 	 */
 	public CreateDatabasePdfReportTask() {
-		super("CreateDatabasePdfReportTask");
 	}
 
-	/**
-	 * @see com.commons.util.model.thread.GenericTask#beforeExecute()
-	 */
-	@Override
 	public void beforeExecute() {
 		CreateDatabasePdfReportTask.log.trace("before execute");
 	}
 
-	/**
-	 * @see com.commons.util.model.thread.GenericTask#execute()
-	 */
-	@Override
 	public void execute() {
 		CreateDatabasePdfReportTask.log.trace("execute");
 

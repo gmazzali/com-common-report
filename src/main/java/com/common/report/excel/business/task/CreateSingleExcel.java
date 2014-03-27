@@ -37,22 +37,14 @@ public abstract class CreateSingleExcel implements Serializable {
 	}
 
 	protected void execute() {
-		try {
-			// Formateamos las columnas.
-			this.columnsFormat();
-
-			// Agregamos los titulos de las columnas.
-			this.columnsTitles();
-
-			// Obtenemos los datos.
-			this.getData();
-
-			// Agregamos los datos.
-			this.addData();
-
-		} catch (Exception e) {
-			CreateSingleExcel.log.error("execute failed", e);
-		}
+		// Formateamos las columnas.
+		this.columnsFormat();
+		// Agregamos los titulos de las columnas.
+		this.columnsTitles();
+		// Obtenemos los datos.
+		this.getData();
+		// Agregamos los datos.
+		this.addData();
 	}
 
 	/**
