@@ -30,17 +30,17 @@ public abstract class PrinterImpl implements Printer {
 	@Override
 	public void openFile(File file) {
 		// Si el archivo no existe.
-		if(!file.exists()) {
+		if (!file.exists()) {
 			PrinterImpl.log.error("file doesn't exist");
-			throw new UncheckedException("printer.open.file.not.exist");
+			throw new UncheckedException("The file doesn't exist", "printer.open.file.not.exist");
 		}
 
 		// Si el archivo es un directorio.
-		if(file.isDirectory()) {
+		if (file.isDirectory()) {
 			PrinterImpl.log.error("file is a directory");
-			throw new UncheckedException("printer.open.file.is.directory");
+			throw new UncheckedException("The file is a directory", "printer.open.file.is.directory");
 		}
-		
+
 		// Si el sistema operativo lo soporta.
 		if (Desktop.isDesktopSupported()) {
 			try {
@@ -48,11 +48,11 @@ public abstract class PrinterImpl implements Printer {
 				Desktop.getDesktop().open(file);
 			} catch (IOException e) {
 				PrinterImpl.log.error("open file failed", e);
-				throw new UncheckedException("printer.open.file.failed");
+				throw new UncheckedException("Open file failed", "printer.open.file.failed");
 			}
 		} else {
 			PrinterImpl.log.error("open file don't supported");
-			throw new UncheckedException("printer.open.file.os.not.support");
+			throw new UncheckedException("Open file doesn't supported", "printer.open.file.os.not.support");
 		}
 	}
 

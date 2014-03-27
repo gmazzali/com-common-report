@@ -50,13 +50,15 @@ public class UncheckedExcelException extends UncheckedException {
 	 * El constructor de una instancia de {@link UncheckedExcelException} que recibe como parámetro un mensaje de {@link ErrorDetail} que vamos a
 	 * crear en el momento.
 	 * 
-	 * @param message
-	 *            El mensaje del error.
-	 * @param parameter
+	 * @param defaultMessage
+	 *            El mensaje por omisión del detalle del error.
+	 * @param keyMessage
+	 *            La clave del mensaje del detalle del error.
+	 * @param parameters
 	 *            Los parámetros que requerimos para el detalle del error.
 	 */
-	public UncheckedExcelException(String message, Object... parameter) {
-		super(message, parameter);
+	public UncheckedExcelException(String defaultMessage, String keyMessage, Object... parameters) {
+		super(defaultMessage, keyMessage, parameters);
 	}
 
 	/**
@@ -65,12 +67,14 @@ public class UncheckedExcelException extends UncheckedException {
 	 * 
 	 * @param cause
 	 *            La causa de un problema que vamos a contener dentro de esta excepción.
-	 * @param message
-	 *            El mensaje del error.
-	 * @param parameter
+	 * @param defaultMessage
+	 *            El mensaje por omisión del detalle del error.
+	 * @param keyMessage
+	 *            La clave del mensaje del detalle del error.
+	 * @param parameters
 	 *            Los parámetros que requerimos para el detalle del error.
 	 */
-	public UncheckedExcelException(Throwable cause, String message, Object... parameter) {
-		super(cause, message, parameter);
+	public UncheckedExcelException(Throwable cause, String defaultMessage, String keyMessage, Object... parameters) {
+		super(cause, defaultMessage, keyMessage, parameters);
 	}
 }
