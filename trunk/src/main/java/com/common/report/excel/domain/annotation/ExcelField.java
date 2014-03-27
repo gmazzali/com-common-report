@@ -38,7 +38,7 @@ public @interface ExcelField {
 	 * 
 	 * @return El parseador que vamos a utilizar dentro de este campo.
 	 */
-	Class<? extends ExcelFieldFormatter<?>> parser() default DefaultExcelFieldFormatter.class;
+	Class<? extends ExcelFieldFormatter> parser() default DefaultExcelFieldFormatter.class;
 
 	/**
 	 * Define si va a cargarse una celda vacía en la celda del campo en caso de que el valor de este sea nulo.

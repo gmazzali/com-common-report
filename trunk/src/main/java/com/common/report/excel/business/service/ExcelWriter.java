@@ -1,8 +1,9 @@
 package com.common.report.excel.business.service;
 
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.ExcelDto;
 
@@ -21,9 +22,10 @@ public interface ExcelWriter<E extends ExcelDto> extends Serializable {
 	/**
 	 * Permite escribir una lista de DTOs dentro de una salida para poder escribirlos en un archivo o desplegarlo.
 	 * 
+	 * @param workbook
+	 *            El workbook donde vamos a escribir las entidades.
 	 * @param excelDtos
 	 *            Los datos que vamos a escribir dentro del archivo.
-	 * @return La salida donde fueron escritos los datos recibidos.
 	 */
-	public OutputStream write(Collection<E> excelDtos);
+	public void write(Workbook workbook, Collection<E> excelDtos);
 }
