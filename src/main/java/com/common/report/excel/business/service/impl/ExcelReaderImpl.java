@@ -1,5 +1,6 @@
 package com.common.report.excel.business.service.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 			for (Field field : fields) {
 				// Tomamos el campo de excel y el parseador.
 				ExcelField excelField = field.getAnnotation(ExcelField.class);
-				ExcelFieldFormatter parser = excelField.parser().newInstance();
+				ExcelFieldFormatter<Serializable> parser = (ExcelFieldFormatter<Serializable>) excelField.parser().newInstance();
 
 				// Obtenemos la celda de acuerdo al tipo de recorrido que tenemos.
 				Cell cell = null;
@@ -135,7 +136,8 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 				}
 
 				// Si obtuvimos alguna celda en esa posición, la parseamos.
-				Object value = parser.get(cell, field.getType());
+				String pattern = excelField.pattern();
+				Serializable value = parser.get(cell, pattern);
 				field.set(excelDto, value);
 
 				// El valor que indica si se leyó al menos un atributo desde el excel.
