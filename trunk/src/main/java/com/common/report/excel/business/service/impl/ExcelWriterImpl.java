@@ -1,5 +1,6 @@
 package com.common.report.excel.business.service.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -48,7 +49,8 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 			this.excelDtoClass = (Class<E>) ((ParameterizedType) super.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		} else {
 			log.error("The generic parameter of this class doesn't must be empty");
-			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty", "report.excel.writer.error.parameter.empty");
+			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty",
+					"report.excel.writer.error.parameter.empty");
 		}
 	}
 
@@ -87,7 +89,7 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 			for (Field field : fields) {
 				// Tomamos el campo de excel y el parseador de este campo.
 				ExcelField excelField = field.getAnnotation(ExcelField.class);
-				ExcelFieldFormatter parser = (ExcelFieldFormatter) excelField.parser().newInstance();
+				ExcelFieldFormatter<Serializable> parser = (ExcelFieldFormatter<Serializable>) excelField.parser().newInstance();
 
 				// Creamos la celda de acuerdo al tipo de recorrido que tenemos.
 				Cell cell = null;
@@ -111,8 +113,10 @@ public class ExcelWriterImpl<E extends ExcelDto> implements ExcelWriter<E> {
 				}
 
 				// Si obtuvimos alguna celda en esa posición, la escribimos.
-				Object value = field.get(excelDto);
-				parser.set(cell, value);
+				Serializable value = (Serializable) field.get(excelDto);
+				String pattern = excelField.pattern();
+
+				parser.set(workbook, cell, pattern, value);
 			}
 		} catch (Exception e) {
 			log.error("Fail to parser the DTO to the excel cell", e);

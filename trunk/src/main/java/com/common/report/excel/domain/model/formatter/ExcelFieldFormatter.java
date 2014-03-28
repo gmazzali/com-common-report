@@ -1,39 +1,52 @@
 package com.common.report.excel.domain.model.formatter;
 
+import java.io.Serializable;
+
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.ExcelDto;
+import com.common.report.excel.domain.model.formatter.impl.DateExcelFieldFormatter;
+import com.common.report.excel.domain.model.formatter.impl.FormulaExcelFieldFormatter;
+import com.common.report.excel.domain.model.formatter.impl.NumberExcelFieldFormatter;
 
 /**
  * Permite definir un parseador de una celda con un campo de un {@link ExcelDto} de un archivo de excel.
- * 
- * @see ExcelDto
- * 
+ *  
+ * @see DateExcelFieldFormatter
+ * @see NumberExcelFieldFormatter
+ * @see FormulaExcelFieldFormatter
+ * @see StringExcelFieldFormatter
+ *   
  * @since 19/03/2014
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public interface ExcelFieldFormatter {
+public interface ExcelFieldFormatter<O extends Serializable> extends Serializable {
 
 	/**
 	 * Carga el contenido de la celda dentro del un objeto y lo retorna formateado correctamente. Debe ser un método null-safe.
 	 * 
 	 * @param cell
 	 *            La celda que va a leerse para cargar el objeto.
-	 * @param clazz
-	 *            La clase que corresponde con el tipo de objeto que es el campo de {@link ExcelDto} que vamos a cargar con el dato de la celda.
+	 * @param El
+	 *            patrón que vamos a usar para leer el dato desde la celda.
 	 * @return El valor cargado con los datos de la celda.
 	 */
-	public Object get(Cell cell, Class<?> clazz);
+	public O get(Cell cell, String pattern);
 
 	/**
 	 * Carga el contenido del objeto recibido dentro de la celda, convirtiendo el mismo en el tipo correcto antes de realizarlo. Debe ser un método
 	 * null-safe.
 	 * 
+	 * @param workbook
+	 *            El {@link Workbook} que vamos a utilizar para crear el formateador del campo.
 	 * @param cell
 	 *            La celda donde vamos a guardar el objeto.
-	 * @param object
-	 *            El objeto que vamos a guardar dentro de la celda.
+	 * @param El
+	 *            patrón que vamos a usar para leer el dato desde la celda.
+	 * @param value
+	 *            El valor que vamos a guardar dentro de la celda.
 	 */
-	public void set(Cell cell, Object object);
+	public void set(Workbook workbook, Cell cell, String pattern, O value);
 }
