@@ -40,7 +40,7 @@ public @interface ExcelField {
 	 * 
 	 * @return El patrón que corresponde con este campo.
 	 */
-	String pattern();
+	String pattern() default "";
 
 	/**
 	 * El parseador que vamos a utilizar con este campo dentro del excel.

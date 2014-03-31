@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
+import com.common.util.business.tool.StringUtil;
 
 /**
  * El formateador de los números que vamos a usar dentro de un archivo de excel.
@@ -36,7 +37,7 @@ public class NumberExcelFieldFormatter implements ExcelFieldFormatter<Number> {
 
 	@Override
 	public void set(Workbook workbook, Cell cell, String pattern, Number value) {
-		if (pattern != null) {
+		if (!StringUtil.isEmpty(pattern)) {
 			CellStyle numberCellStyle = workbook.createCellStyle();
 			numberCellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(pattern));
 			cell.setCellStyle(numberCellStyle);
