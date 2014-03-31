@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
+import com.common.util.business.tool.StringUtil;
 
 /**
  * El formateador de las cadenas de textos que vamos a usar dentro de un archivo de excel.
@@ -33,7 +34,7 @@ public class StringExcelFiledFormatter implements ExcelFieldFormatter<String> {
 
 	@Override
 	public void set(Workbook workbook, Cell cell, String pattern, String value) {
-		if (pattern != null) {
+		if (!StringUtil.isEmpty(pattern)) {
 			CellStyle stringCellStyle = workbook.createCellStyle();
 			stringCellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(pattern));
 			cell.setCellStyle(stringCellStyle);

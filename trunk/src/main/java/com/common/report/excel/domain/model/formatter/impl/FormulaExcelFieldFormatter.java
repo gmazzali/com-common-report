@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
+import com.common.util.business.tool.StringUtil;
 
 /**
  * El formateador de las formulas que vamos a usar dentro de un archivo de excel.
@@ -35,7 +36,7 @@ public class FormulaExcelFieldFormatter implements ExcelFieldFormatter<String> {
 
 	@Override
 	public void set(Workbook workbook, Cell cell, String pattern, String value) {
-		if (pattern != null) {
+		if (!StringUtil.isEmpty(pattern)) {
 			CellStyle formulaCellStyle = workbook.createCellStyle();
 			formulaCellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(pattern));
 			cell.setCellStyle(formulaCellStyle);

@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
+import com.common.util.business.tool.StringUtil;
 
 /**
  * El formateador de las fechas que vamos a usar dentro de un archivo de excel.
@@ -36,7 +37,7 @@ public class DateExcelFieldFormatter implements ExcelFieldFormatter<Date> {
 
 	@Override
 	public void set(Workbook workbook, Cell cell, String pattern, Date value) {
-		if (pattern != null) {
+		if (!StringUtil.isEmpty(pattern)) {
 			CellStyle dateCellStyle = workbook.createCellStyle();
 			dateCellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(pattern));
 			cell.setCellStyle(dateCellStyle);
