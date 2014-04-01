@@ -17,17 +17,20 @@ import com.common.util.business.tool.StringUtil;
  * @since 28/03/2014
  * @author Guillermo Mazzali
  * @version 1.0
+ * 
+ * @param <N>
+ *            El tipo de numero que vamos a manejar dentro de la celda.
  */
-public class NumberExcelFieldFormatter implements ExcelFieldFormatter<Number> {
+public abstract class NumberExcelFieldFormatter<N extends Number> implements ExcelFieldFormatter<N> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getLogger(NumberExcelFieldFormatter.class);
 
 	@Override
-	public Number get(Cell cell, String pattern) {
-		Double number = null;
+	public N get(Cell cell, String pattern) {
+		N number = null;
 
-		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC && DateUtil.isCellDateFormatted(cell)) {
-			number = cell.getNumericCellValue();
+		if (cell != null && cell.getCellType() == Cell.CELL_TYPE_NUMERIC && !DateUtil.isCellDateFormatted(cell)) {
+			number = this.converter(cell.getNumericCellValue());
 		} else {
 			log.error("The cell isn't number type");
 		}
@@ -36,7 +39,7 @@ public class NumberExcelFieldFormatter implements ExcelFieldFormatter<Number> {
 	}
 
 	@Override
-	public void set(Workbook workbook, Cell cell, String pattern, Number value) {
+	public void set(Workbook workbook, Cell cell, String pattern, N value) {
 		if (!StringUtil.isEmpty(pattern)) {
 			CellStyle numberCellStyle = workbook.createCellStyle();
 			numberCellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(pattern));
@@ -51,4 +54,13 @@ public class NumberExcelFieldFormatter implements ExcelFieldFormatter<Number> {
 			log.info("The value is null");
 		}
 	}
+
+	/**
+	 * Permite convertir de un valor doble al valor que queremos recuperar desde la celda.
+	 * 
+	 * @param number
+	 *            El valor doble que queremos convertir al tipo objetivo.
+	 * @return El valor doble convertido al tipo objetivo.
+	 */
+	protected abstract N converter(double number);
 }

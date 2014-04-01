@@ -12,20 +12,13 @@ import com.common.util.domain.exception.UncheckedException;
 /**
  * La clase que nos va a servir para abrir una ventana de impresión o para abrir un archivo de manera nativa dentro del sistema operativo.
  * 
+ * @since 01/04/2014
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public abstract class PrinterImpl implements Printer {
-
-	/**
-	 * El Logger que vamos a ocupar dentro de la clase.
-	 */
+public class PrinterImpl implements Printer {
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getLogger(PrinterImpl.class);
-
-	@Override
-	public void openFile(String pathFile) {
-		this.openFile(new File(pathFile));
-	}
 
 	@Override
 	public void openFile(File file) {
@@ -57,7 +50,7 @@ public abstract class PrinterImpl implements Printer {
 	}
 
 	@Override
-	public void printFile(String pathFile) {
-		this.printFile(new File(pathFile));
+	public void printFile(File file) {
+		// TODO Auto-generated method stub
 	}
 }
