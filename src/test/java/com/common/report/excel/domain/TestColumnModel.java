@@ -7,7 +7,8 @@ import com.common.report.excel.domain.annotation.ExcelField;
 import com.common.report.excel.domain.model.ExcelDto;
 import com.common.report.excel.domain.model.ParseType;
 import com.common.report.excel.domain.model.formatter.impl.DateExcelFieldFormatter;
-import com.common.report.excel.domain.model.formatter.impl.NumberExcelFieldFormatter;
+import com.common.report.excel.domain.model.formatter.impl.DoubleExcelFieldFormatter;
+import com.common.report.excel.domain.model.formatter.impl.LongExcelFieldFormatter;
 import com.common.report.excel.domain.model.formatter.impl.StringExcelFiledFormatter;
 
 /**
@@ -27,14 +28,18 @@ public class TestColumnModel extends ExcelDto {
 	@ExcelField(name = "Apellido", posicion = 1, parser = StringExcelFiledFormatter.class, emptyIfNull = true)
 	private String apellido;
 
-	@ExcelField(name = "Sueldo", posicion = 2, parser = NumberExcelFieldFormatter.class, emptyIfNull = true, pattern = "#,##0.00")
+	@ExcelField(name = "Sueldo", posicion = 2, parser = DoubleExcelFieldFormatter.class, emptyIfNull = true, pattern = "#,##0.00")
 	private Double sueldo;
 
 	@ExcelField(name = "Fecha de nacimiento", posicion = 3, parser = DateExcelFieldFormatter.class, emptyIfNull = true, pattern = "dd/MM/yyyy")
 	private Date fechaNacimiento;
 
-	@ExcelField(name = "Edad", posicion = 4, parser = NumberExcelFieldFormatter.class, emptyIfNull = true, pattern = "###")
+	@ExcelField(name = "Edad", posicion = 4, parser = LongExcelFieldFormatter.class, emptyIfNull = true, pattern = "###")
 	private Long edad;
+
+	public TestColumnModel() {
+		super();
+	}
 
 	public TestColumnModel(String nombre, String apellido, Double sueldo, Date fechaNacimiento, Long edad) {
 		super();

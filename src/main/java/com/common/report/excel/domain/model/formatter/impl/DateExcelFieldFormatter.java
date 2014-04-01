@@ -26,7 +26,7 @@ public class DateExcelFieldFormatter implements ExcelFieldFormatter<Date> {
 	public Date get(Cell cell, String pattern) {
 		Date date = null;
 
-		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC && DateUtil.isCellDateFormatted(cell)) {
+		if (cell != null && cell.getCellType() == Cell.CELL_TYPE_NUMERIC && DateUtil.isCellDateFormatted(cell)) {
 			date = cell.getDateCellValue();
 		} else {
 			log.error("The cell isn't date type");

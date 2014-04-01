@@ -25,7 +25,7 @@ public class FormulaExcelFieldFormatter implements ExcelFieldFormatter<String> {
 	public String get(Cell cell, String pattern) {
 		String formula = null;
 
-		if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+		if (cell != null && cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
 			formula = cell.getCellFormula();
 		} else {
 			log.error("The cell isn't formula type");

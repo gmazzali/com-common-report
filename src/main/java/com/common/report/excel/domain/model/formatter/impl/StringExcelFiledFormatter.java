@@ -23,8 +23,8 @@ public class StringExcelFiledFormatter implements ExcelFieldFormatter<String> {
 	public String get(Cell cell, String pattern) {
 		String string = null;
 
-		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-			string = cell.getCellFormula();
+		if (cell != null && cell.getCellType() == Cell.CELL_TYPE_STRING) {
+			string = cell.getStringCellValue();
 		} else {
 			log.error("The cell isn't string type");
 		}

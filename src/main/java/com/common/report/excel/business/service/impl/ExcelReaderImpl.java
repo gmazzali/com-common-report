@@ -20,6 +20,7 @@ import com.common.report.excel.domain.exception.UncheckedExcelException;
 import com.common.report.excel.domain.model.ExcelDto;
 import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
 import com.common.util.business.tool.VerifierUtil;
+import com.common.util.domain.exception.UncheckedException;
 
 /**
  * La implementación base del lector de entidades a partir de un archivo de excel.
@@ -48,11 +49,12 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 	 * El constructor de un lector de archivos de excel.
 	 */
 	public ExcelReaderImpl() {
-		if (this instanceof ParameterizedType) {
+		try {
 			this.excelDtoClass = (Class<E>) ((ParameterizedType) super.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		} else {
-			log.error("The generic parameter of this class doesn't must be empty");
-			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty", "report.excel.reader.error.parameter.empty");
+		} catch (Exception ex) {
+			log.error("The generic parameter of this class doesn't must be empty", ex);
+			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty",
+					"report.excel.reader.error.parameter.empty");
 		}
 	}
 
@@ -84,11 +86,12 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 				} else {
 					break;
 				}
-			} catch (UncheckedExcelException e) {
+			} catch (UncheckedException e) {
 				throw e;
 			} catch (Exception e) {
 				log.error("Can't create a new instance of the DTO (missing default constructor?)", e);
-				throw new UncheckedExcelException("Can't create a new instance of the DTO (missing default constructor?)", "report.excel.reader.error.newinstance.fail");
+				throw new UncheckedExcelException("Can't create a new instance of the DTO (missing default constructor?)",
+						"report.excel.reader.error.newinstance.fail");
 			}
 		}
 
