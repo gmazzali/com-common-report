@@ -10,19 +10,25 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.common.report.excel.business.service.impl.ExcelReaderImpl;
+import com.common.report.excel.domain.ExcelUtilTest;
 import com.common.report.excel.domain.TestColumnModel;
 import com.common.report.excel.domain.TestRowModel;
 
+/**
+ * El conjunto de pruebas para la lectura de un archivo de excel.
+ * 
+ * @since 28/03/2014
+ * @author Guillermo Mazzali
+ * @version 1.0
+ */
 public class ExcelReaderTestUnit {
-
-	private static final String FILE = "C:\\Users\\gmazzali\\Desktop\\test.xlsx";
 
 	private static Workbook workbook;
 
 	@BeforeClass
 	public static void init() {
 		try {
-			workbook = new XSSFWorkbook(new FileInputStream(FILE));
+			workbook = new XSSFWorkbook(new FileInputStream(ExcelUtilTest.FILE));
 		} catch (Exception e) {
 			Assert.fail();
 		}
