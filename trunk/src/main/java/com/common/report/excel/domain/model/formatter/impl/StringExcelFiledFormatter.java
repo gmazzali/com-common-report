@@ -9,7 +9,8 @@ import com.common.report.excel.domain.model.formatter.ExcelFieldFormatter;
 import com.common.util.business.tool.StringUtil;
 
 /**
- * El formateador de las cadenas de textos que vamos a usar dentro de un archivo de excel.
+ * El formateador de las cadenas de textos que vamos a usar dentro de un archivo de excel. En caso de que la cadena dentro de la celda sea vacía se
+ * toma como un valor nulo.
  * 
  * @since 28/03/2014
  * @author Guillermo Mazzali
@@ -29,7 +30,7 @@ public class StringExcelFiledFormatter implements ExcelFieldFormatter<String> {
 			log.error("The cell isn't string type");
 		}
 
-		return string;
+		return !StringUtil.isBlank(string) ? string : null;
 	}
 
 	@Override
