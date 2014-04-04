@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -44,6 +45,10 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 	 * La clase que manejamos dentro del excel.
 	 */
 	private final Class<E> excelDtoClass;
+	/**
+	 * La lista de los campos del objeto.
+	 */
+	private final List<Field> excelFields;
 
 	/**
 	 * El constructor de un lector de archivos de excel.
@@ -51,6 +56,13 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 	public ExcelReaderImpl() {
 		try {
 			this.excelDtoClass = (Class<E>) ((ParameterizedType) super.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+			this.excelFields = Collections.unmodifiableList(ExcelUtils.getMappedExcelField(this.excelDtoClass));
+
+			if (this.excelFields.isEmpty()) {
+				log.error("The generic parameter of this class doesn't have excel fields");
+				throw new UncheckedExcelException("The generic parameter of this class doesn't have excel fields",
+						"report.excel.reader.error.parameter.class.empty");
+			}
 		} catch (Exception ex) {
 			log.error("The generic parameter of this class doesn't must be empty", ex);
 			throw new UncheckedExcelException("The generic parameter of this class doesn't must be empty",
@@ -115,10 +127,7 @@ public abstract class ExcelReaderImpl<E extends ExcelDto> implements ExcelReader
 		Boolean dataNotNull = false;
 
 		try {
-			// Tomamos todos los campos y los cargamos con los datos desde las celdas.
-			List<Field> fields = ExcelUtils.getMappedExcelField(this.excelDtoClass);
-
-			for (Field field : fields) {
+			for (Field field : this.excelFields) {
 				// Tomamos el campo de excel y el parseador.
 				ExcelField excelField = field.getAnnotation(ExcelField.class);
 				ExcelFieldFormatter<Serializable> parser = (ExcelFieldFormatter<Serializable>) excelField.parser().newInstance();
