@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.common.report.excel.business.service.ExcelWriter;
 import com.common.report.excel.business.service.impl.ExcelWriterImpl;
+import com.common.report.excel.domain.ExcelUtilTest;
 import com.common.report.excel.domain.TestColumnModel;
 import com.common.report.excel.domain.TestRowModel;
 
@@ -23,8 +24,6 @@ import com.common.report.excel.domain.TestRowModel;
  * @version 1.0
  */
 public class ExcelWriterTestUnit {
-
-	private static final String FILE = "C:\\Users\\gmazzali\\Desktop\\test.xlsx";
 
 	private static Workbook workbook;
 
@@ -41,7 +40,7 @@ public class ExcelWriterTestUnit {
 			workbook.write(output);
 			output.close();
 
-			FileOutputStream fileOutput = new FileOutputStream(FILE);
+			FileOutputStream fileOutput = new FileOutputStream(ExcelUtilTest.FILE);
 			fileOutput.write(output.toByteArray());
 			fileOutput.close();
 		} catch (Exception e) {

@@ -1,19 +1,23 @@
-package com.common.report.excel.business;
+package com.common.report.excel.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.common.report.excel.domain.TestColumnModel;
-import com.common.report.excel.domain.TestRowModel;
 
 /**
- * Se usa para crear las listas a carga
+ * Se usa para crear las listas a cargar y la ubicación del archivo.
  * 
- * @author gmazzali
- * 
+ * @since 28/03/2014
+ * @author Guillermo Mazzali
+ * @version 1.0
  */
 public class ExcelUtilTest {
+
+	/**
+	 * La ubicación del archivo.
+	 */
+	public static final String FILE = "C:\\Users\\gmazzali\\Desktop\\test.xlsx";
 
 	/**
 	 * Crea un listado de DTOs para prueba de carga por fila.
