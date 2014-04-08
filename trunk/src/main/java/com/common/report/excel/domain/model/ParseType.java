@@ -5,8 +5,8 @@ package com.common.report.excel.domain.model;
  * izquierda.
  * 
  * <ul>
- * <li>{@link ParseType#ROW} -> Indica lectura de datos de arriba a abajo.</li>
- * <li>{@link ParseType#COLUMN} -> Indica lectura de datos de derecha a izquierda.</li>
+ * <li>{@link ParseType#ROW ROW} -> Indica lectura de datos de arriba a abajo.</li>
+ * <li>{@link ParseType#COLUMN COLUMN} -> Indica lectura de datos de derecha a izquierda.</li>
  * </ul>
  * 
  * @since 19/03/2014
