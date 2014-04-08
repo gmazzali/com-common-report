@@ -11,8 +11,14 @@ import com.common.util.business.tool.StringUtil;
 
 /**
  * El formateador de los números que vamos a usar dentro de un archivo de excel.
+ * <p>
+ * <i> http://stackoverflow.com/questions/5335285/write-number-in-excel-cell-with-poi </i>
+ * </p>
  * 
- * @see http://stackoverflow.com/questions/5335285/write-number-in-excel-cell-with-poi
+ * @see BigDecimalExcelFieldFormatter
+ * @see DoubleExcelFieldFormatter
+ * @see IntegerExcelFieldFormatter
+ * @see LongExcelFieldFormatter
  * 
  * @since 28/03/2014
  * @author Guillermo Mazzali
