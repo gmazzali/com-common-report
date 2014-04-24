@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.junit.BeforeClass;
 
 /**
  * Se usa para crear las listas a cargar y la ubicación del archivo.
@@ -18,6 +20,11 @@ public class ExcelUtilTest {
 	 * La ubicación del archivo.
 	 */
 	public static final String FILE = "C:\\Users\\gmazzali\\Desktop\\test.xlsx";
+
+	@BeforeClass
+	public static void initClass() {
+		BasicConfigurator.configure();
+	}
 
 	/**
 	 * Crea un listado de DTOs para prueba de carga por fila.
