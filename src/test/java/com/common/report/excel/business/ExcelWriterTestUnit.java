@@ -3,6 +3,7 @@ package com.common.report.excel.business;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
@@ -28,7 +29,8 @@ public class ExcelWriterTestUnit {
 	private static Workbook workbook;
 
 	@BeforeClass
-	public static void init() {
+	public static void initClass() {
+		BasicConfigurator.configure();
 		workbook = new XSSFWorkbook();
 	}
 
