@@ -1,0 +1,1 @@
+El proyecto de la librería común para los proyectos que hacen uso de reportes.
